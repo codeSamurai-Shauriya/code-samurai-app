@@ -22,6 +22,7 @@ function databaseInitialize() {
         User = db.addCollection("users");
         User.insert({username:'admin',password:'admin'});
         User.insert({username:'user',password:'user'});
+        User.insert({username:'Shauriya',password:'i'})
     }
     if (Item === null) {
         Item = db.addCollection('items');
@@ -104,8 +105,8 @@ app.get('/additem', function (request, response) {
 app.post('/login', function (request, response) {
     var loginName = request.body.loginName;
     var password = request.body.password;
-
-    // save login name in session so it's available later
+    if (userPasswordMatch(loginName, password)) {
+      // save login name in session so it's available later
     request.session.user = loginName;
 
     //hint: check is password is good or not, if not load same page with error as below
@@ -113,16 +114,22 @@ app.post('/login', function (request, response) {
 
     response.render('listpage', {items: Item.find()});
 
+    }
+    else {
+             response.render('index', {message: "Invalid username or password"})
+    }
+
 });
 
 
 
 // when save button is clicked on add page
 app.post('/saveitem', function (request, response) {
+    console.log ("Addedby;"+request.body.addedBy);
 
-    // hint #1: find the helper function that will help save the information first
+    // hint #1: find the helper functions that will help save the information first
     // hint #2: make sure to send the list of items to the list page
-
-    response.render('listpage',{ items:[] });
+    response.render('listpage',{ items:saveFormAndReturnAllItems(request.body) });
 });
 
+Class="yellow"

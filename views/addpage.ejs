@@ -13,13 +13,18 @@
 
 
 
-        Added by: <input type="text" name="addedBy" value="<%=loginName%>" readonly/>
+        Added by: <input type="text" name="addedBy" value="" required/>
+        Name of Song: <input type="text" name="SongName" maxlength = "20" required/>
+        Singer: <input type="text" name="Artist" maxlength = "20" required/>
+        Genre: <input type="text" name="Genre" maxlength = "20" required/>
+        URL:  <input type="URL" name="URL" maxlength = "100" required/>
+        Rating: <input type="NUMBER" name="Rating" min="1" max="10" required/>
 
         <button class="btn" type="submit" name="submit">Save Item</button>
 
     </form>
 
 </div>
-<% include ./footer %>
+<% include ./footer %>s
 </body>
 </html>
